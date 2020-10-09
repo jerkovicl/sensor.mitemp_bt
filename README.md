@@ -39,13 +39,13 @@ This custom component is an alternative for the standard build in [mitemp_bt](ht
   
 - LYWSD03MMC
 
-  (small square body, segment LCD, broadcasts temperature and humidity once in about 10 minutes and battery level once in an hour, advertisements are encrypted, therefore you need to set the key in your configuration, see for instructions the [encryptors](#configuration-variables) option)
+  (small square body, segment LCD, broadcasts temperature and humidity once in about 10 minutes and battery level once in an hour. Supports both sensors with original firmware as well as custom firmware as explained [here](https://github.com/atc1441/ATC_MiThermometer) (make sure you set advertising type to mi-like). With the original firmware, advertisements are encrypted, therefore you need to set an encryption key in your configuration, see for instructions the [encryptors](#encryptors) option (not needed for sensors with custom firmware))
   
   ![LYWSD03MMC](/pictures/LYWSD03MMC.jpg)
 
 - CGD1
 
-  (Cleargrass (Qingping) CGD1 alarm clock, segment LCD, broadcasts temperature and humidity (once in about 3 minutes?), and battery level (we do not have accurate periodicity information yet), advertisements are encrypted, therefore you need to set the key in your configuration, see for instructions the [encryptors](#configuration-variables) option)
+  (Cleargrass (Qingping) CGD1 alarm clock, segment LCD, broadcasts temperature and humidity (once in about 3 minutes?), and battery level (we do not have accurate periodicity information yet), advertisements are encrypted, therefore you need to set the key in your configuration, see for instructions the [encryptors](#encryptors) option)
 
   ![CGD1](/pictures/CGD1.jpg)
 
@@ -58,7 +58,7 @@ This custom component is an alternative for the standard build in [mitemp_bt](ht
 
 - MHO-C401
   
-  (small square body, E-Ink display, broadcasts temperature and humidity once in about 10 minutes and battery level once in an hour, advertisements are encrypted, therefore you need to set the key in your configuration, see for instructions the [encryptors](#configuration-variables) option)
+  (small square body, E-Ink display, broadcasts temperature and humidity once in about 10 minutes and battery level once in an hour, advertisements are encrypted, therefore you need to set the key in your configuration, see for instructions the [encryptors](#encryptors) option)
   
   ![MHO-C401](/pictures/MHO-C401.jpg)
 
@@ -78,7 +78,7 @@ This custom component is an alternative for the standard build in [mitemp_bt](ht
 
   (VegTrug Grow Care Garden, similar to MiFlora HHCCJCY01)
 
-  ![GCLS002](/pictures/GCLS002.jpg)
+  ![GCLS002](/pictures/GCLS002.png)
 
 - HHCCPOT002
 
@@ -161,7 +161,7 @@ sensor:
     hci_interface: 0
     batt_entities: False
     encryptors:
-               'A4:C1:38:2F:86:6C': '217C568CF5D22808DA20181502D84C1B'
+      'A4:C1:38:2F:86:6C': '217C568CF5D22808DA20181502D84C1B'
     report_unknown: False
     whitelist: False
 ```
@@ -208,8 +208,8 @@ Note: The encryptors parameter is only needed for sensors, for which it is [poin
    sensor:
        - platform: mitemp_bt
          hci_interface:
-                       - 0
-                       - 1
+           - 0
+           - 1
    ```
 
    Default value: 0
@@ -220,14 +220,14 @@ Note: The encryptors parameter is only needed for sensors, for which it is [poin
 
 #### encryptors
 
-   (dictionary)(Optional) This option is used to link the mac-address of the sensor broadcasting encrypted advertisements to the encryption key (32 characters = 16 bytes). This is only needed for LYWSD03MMC, CGD1 and MHO-C401 sensors. The case of the characters does not matter. The keys below are an example, you need your own key(s)! Information on how to get your key(s) can be found [here](https://github.com/custom-components/sensor.mitemp_bt/blob/master/faq.md#my-sensors-ble-advertisements-are-encrypted-how-can-i-get-the-key). Default value: Empty
+   (dictionary)(Optional) This option is used to link the mac-address of the sensor broadcasting encrypted advertisements to the encryption key (32 characters = 16 bytes). This is only needed for LYWSD03MMC, CGD1 and MHO-C401 sensors (original firmware only). The case of the characters does not matter. The keys below are an example, you need your own key(s)! Information on how to get your key(s) can be found [here](https://github.com/custom-components/sensor.mitemp_bt/blob/master/faq.md#my-sensors-ble-advertisements-are-encrypted-how-can-i-get-the-key). Default value: Empty
 
    ```yaml
    sensor:
      - platform: mitemp_bt
        encryptors:
-                'A4:C1:38:2F:86:6C': '217C568CF5D22808DA20181502D84C1B'
-                'A4:C1:38:D1:61:7D': 'C99D2313182473B38001086FEBF781BD'
+         'A4:C1:38:2F:86:6C': '217C568CF5D22808DA20181502D84C1B'
+         'A4:C1:38:D1:61:7D': 'C99D2313182473B38001086FEBF781BD'
    ```
 
 #### report_unknown

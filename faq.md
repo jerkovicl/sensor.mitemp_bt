@@ -138,8 +138,14 @@ There are several ways to increase coverage:
 
 There are several ways:
 
-1. Using TelinkFlasher, see instructions [here](https://community.home-assistant.io/t/xiaomi-passive-ble-monitor-sensor-platform/177352/407)
+1. Using TelinkFlasher, see also the instructions [here](https://community.home-assistant.io/t/xiaomi-passive-ble-monitor-sensor-platform/177352/407)
 
+    - Keep the sensor close to the mobile phone (android only) or Windows computer.
+    - Make sure that the bluetooth is enabled.
+    - Using your browser, navigate to https://atc1441.github.io/TelinkFlasher.html.
+    - Now, click the [Connect] button and wait until it shows "Connected." See the Log section at the bottom.
+    - Once connected, click the [Do Activation] button and wait until the "Mi Bind Key" shows the information.
+  
 2. Get the key from the MiHome application traffic (in violation of the Xiaomi user agreement terms) while adding a sensor to the application ("pairing"). If the sensor has already been added before, then you can first delete it and add it again:
 
       - iOS: Two known working options 
