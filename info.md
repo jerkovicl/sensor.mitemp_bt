@@ -9,9 +9,9 @@ Beta version 7.1 is currently not working correctly with Home Assistant 0.113 an
 {% endif %}
 {% if installed or pending_update %}
 
-# Changes in 0.6.12
+# Changes in 0.6.13
 
-- Added support for MMC MHO-C303 MHO-C303 Thermometer and Hygrometer Smart Desk Clock (by [znanev](https://github.com/znanev));
+- Added support for LYWSD03MMC sensors with custom Telink firmware (by [benkarro](https://github.com/benkarro)). For more information about Telink firmware, see this [github page](https://github.com/atc1441/ATC_MiThermometer). You can remove the encryption key after flashing the custom firmware. Make sure you set advertising type to mi-like.
 
 {% endif %}
 
@@ -40,74 +40,73 @@ This custom component is an alternative for the standard build in [mitemp_bt](ht
 
   (round body, segment LCD, broadcasts temperature, humidity and battery level, about 20 readings per minute)
   
-  ![LYWSDCGQ](/pictures/LYWSDCGQ.jpg)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/LYWSDCGQ.jpg">
   
 - CGG1
 
   (round body, E-Ink, broadcasts temperature, humidity and battery level, about 20 readings per minute)
 
-  ![CGG1](/pictures/CGG1.png)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/CGG1.png">
 
 - LYWSD02
 
   (rectangular body, E-Ink, broadcasts temperature and humidity, about 20 readings per minute, no battery info)
 
-  ![LYWSD02](/pictures/LYWSD02.jpeg)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/LYWSD02.jpeg">
   
 - LYWSD03MMC
 
-  (small square body, segment LCD, broadcasts temperature and humidity once in about 10 minutes and battery level once in an hour, advertisements are encrypted, therefore you need to set the key in your configuration, see for instructions the [encryptors](#configuration-variables) option)
+  (small square body, segment LCD, broadcasts temperature and humidity once in about 10 minutes and battery level once in an hour. Supports both sensors with original firmware as well as custom firmware as explained [here](https://github.com/atc1441/ATC_MiThermometer) (make sure you set advertising type to mi-like). With the original firmware, advertisements are encrypted, therefore you need to set an encryption key in your configuration, see for instructions the [encryptors](#encryptors) option (not needed for sensors with custom firmware))
   
-  ![LYWSD03MMC](/pictures/LYWSD03MMC.jpg)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/LYWSD03MMC.jpg">
 
 - CGD1
 
-  (Cleargrass (Qingping) CGD1 alarm clock, segment LCD, broadcasts temperature and humidity (once in about 3 minutes?), and battery level (we do not have accurate periodicity information yet), advertisements are encrypted, therefore you need to set the key in your configuration, see for instructions the [encryptors](#configuration-variables) option)
+  (Cleargrass (Qingping) CGD1 alarm clock, segment LCD, broadcasts temperature and humidity (once in about 3 minutes?), and battery level (we do not have accurate periodicity information yet), advertisements are encrypted, therefore you need to set the key in your configuration, see for instructions the [encryptors](#encryptors) option)
 
-  ![CGD1](/pictures/CGD1.jpg)
-
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/CGD1.jpg">
   
 - MHO-C303
 
   (Alarm clock, rectangular body, E-Ink, broadcasts temperature, humidity and battery level, about 20 readings per minute)
   
-  ![MHO-C303](/pictures/MHO-C303.png)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/MHO-C303.png">
 
 - MHO-C401
   
-  (small square body, E-Ink display, broadcasts temperature and humidity once in about 10 minutes and battery level once in an hour, advertisements are encrypted, therefore you need to set the key in your configuration, see for instructions the [encryptors](#configuration-variables) option)
+  (small square body, E-Ink display, broadcasts temperature and humidity once in about 10 minutes and battery level once in an hour, advertisements are encrypted, therefore you need to set the key in your configuration, see for instructions the [encryptors](#encryptors) option)
   
-  ![MHO-C401](/pictures/MHO-C401.jpg)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/MHO-C401.jpg">
 
 - JQJCY01YM
 
   (Xiaomi Honeywell Formaldehyde Sensor, OLED display, broadcasts temperature, humidity, formaldehyde (mg/m³) and battery level, about 50 messages per minute)
   
-  ![supported sensors](/pictures/JQJCY01YM.jpg)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/JQJCY01YM.jpg">
 
 - HHCCJCY01
 
   (MiFlora, broadcasts temperature, moisture, illuminance, conductivity, 1 reading per minute, no battery info with firmware v3.2.1)
   
-  ![HHCCJCY01](/pictures/HHCCJCY01.jpg)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/HHCCJCY01.jpg">
 
 - GCLS002
 
   (VegTrug Grow Care Garden, similar to MiFlora HHCCJCY01)
 
-  ![GCLS002](/pictures/GCLS002.jpg)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/GCLS002.png">
 
 - HHCCPOT002
 
   (FlowerPot, RoPot, broadcasts moisture and conductivity, 2 readings per minute, no battery info with firmware v1.2.6)
   
-  ![HHCCPOT002](/pictures/HHCCPOT002.jpg)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/HHCCPOT002.jpg">
 
 - WX08ZM
 
   (Xiaomi Mija Mosquito Repellent, Smart version, broadcasts switch state, tablet resource, battery level, about 50 messages per minute)
  
-  ![supported sensors](/pictures/WX08ZM.jpg)
+  <img src="https://github.com/custom-components/sensor.mitemp_bt/blob/master/pictures/WX08ZM.jpg">
 
 *The amount of actually received data is highly dependent on the reception conditions (like distance and electromagnetic ambiance), readings numbers are indicated for good RSSI (Received Signal Strength Indicator) of about -70dBm till -75dBm.*
 
@@ -177,7 +176,7 @@ sensor:
     hci_interface: 0
     batt_entities: False
     encryptors:
-              'A4:C1:38:2F:86:6C': '217C568CF5D22808DA20181502D84C1B'
+      'A4:C1:38:2F:86:6C': '217C568CF5D22808DA20181502D84C1B'
     report_unknown: False
     whitelist: False
 ```
@@ -224,8 +223,8 @@ Note: The encryptors parameter is only needed for sensors, for which it is [poin
    sensor:
        - platform: mitemp_bt
          hci_interface:
-                       - 0
-                       - 1
+           - 0
+           - 1
    ```
 
    Default value: 0
@@ -236,14 +235,14 @@ Note: The encryptors parameter is only needed for sensors, for which it is [poin
 
 #### encryptors
 
-   (dictionary)(Optional) This option is used to link the mac-address of the sensor broadcasting encrypted advertisements to the encryption key (32 characters = 16 bytes). This is only needed for LYWSD03MMC, CGD1 and MHO-C401 sensors. The case of the characters does not matter. The keys below are an example, you need your own key(s)! Information on how to get your key(s) can be found [here](https://github.com/custom-components/sensor.mitemp_bt/blob/master/faq.md#my-sensors-ble-advertisements-are-encrypted-how-can-i-get-the-key). Default value: Empty
+   (dictionary)(Optional) This option is used to link the mac-address of the sensor broadcasting encrypted advertisements to the encryption key (32 characters = 16 bytes). This is only needed for LYWSD03MMC, CGD1 and MHO-C401 sensors (original firmware only). The case of the characters does not matter. The keys below are an example, you need your own key(s)! Information on how to get your key(s) can be found [here](https://github.com/custom-components/sensor.mitemp_bt/blob/master/faq.md#my-sensors-ble-advertisements-are-encrypted-how-can-i-get-the-key). Default value: Empty
 
    ```yaml
    sensor:
      - platform: mitemp_bt
        encryptors:
-                'A4:C1:38:2F:86:6C': '217C568CF5D22808DA20181502D84C1B'
-                'A4:C1:38:D1:61:7D': 'C99D2313182473B38001086FEBF781BD'
+         'A4:C1:38:2F:86:6C': '217C568CF5D22808DA20181502D84C1B'
+         'A4:C1:38:D1:61:7D': 'C99D2313182473B38001086FEBF781BD'
    ```
 
 #### report_unknown
